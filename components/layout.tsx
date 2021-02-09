@@ -1,12 +1,14 @@
 import Head from 'next/head'
 import styles from './layout.module.css'
 import utilStyles from'../styles/utils.module.css'
+import Image from 'next/image'
 import Link from 'next/link'
+import {ReactNode} from "react";
 
 const name= 'Fanny'
 export const siteTitle = 'Next.js Sample Website'
 
-export default function ({ children, home }) {
+export default function ({ children, home } : {children: ReactNode, home?: boolean}) {
     return (
         <div className={styles.container}>
             <Head>
@@ -20,12 +22,15 @@ export default function ({ children, home }) {
                 <meta name="og:title" content={siteTitle} />
                 <meta name="twitter:card" content="summary_large_image" />
             </Head>
-            <header classname={styles.header}>
+            <header className={styles.header}>
                 {home ? (
                     <>
-                        <img
+                        <Image
+                            priority
                             src="/images/profile.png"
-                            className={`${styles.headerHomeImage} ${utilStyles.borderCircle}`}
+                            className={utilStyles.borderCircle}
+                            height={144}
+                            width={144}
                             alt={name}
                         />
                         <h1 className={utilStyles.heading2Xl}>{name}</h1>
@@ -34,10 +39,13 @@ export default function ({ children, home }) {
                 <>
                 <Link href="/">
                     <a>
-                        <img
+                        <Image
+                            priority
                             src="/images/profile.png"
                             className={`${styles.headerImage} ${utilStyles.borderCircle}`}
                             alt={name}
+                            height={108}
+                            width={108}
                         />
                     </a>
                 </Link>

@@ -23,7 +23,7 @@ export function getSortedPostsData() {
         // Combine the data with the id
         return {
             id,
-            ...matterResult.data
+            ...(matterResult.data as { date: string; title: string })
         }
     })
     // Sort posts by date
@@ -46,6 +46,20 @@ export function getAllPostIds() {
         }
     })
 }
+// Fetch External API or Query Database
+// export async function getAllPostIds() {
+//     // Instead of the file system,
+//     // fetch post data from an external API endpoint
+//     const res = await fetch('..')
+//     const posts = await res.json()
+//     return posts.map(post => {
+//         return {
+//             params: {
+//                 id: post.id
+//             }
+//         }
+//     })
+// }
 
 export async function getPostData(id) {
     const fullPath = path.join(postsDirectory, `${id}.md`)
@@ -64,6 +78,6 @@ export async function getPostData(id) {
     return {
         id,
         contentHtml,
-        ...matterResult.data
+        ...(matterResult.data as { date: string; title: string })
     }
 }
