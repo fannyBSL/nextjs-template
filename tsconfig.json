@@ -26,5 +26,6 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ]
+  ],
+  "presets": ["@babel/preset-typescript"],
 }
