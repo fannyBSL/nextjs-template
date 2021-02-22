@@ -1,13 +1,32 @@
-import '../styles/global.css'
+import React, { useEffect } from 'react';
 import { AppProps } from "next/app";
-import { useEffect } from 'react';
+import {useMediaQuery} from "@material-ui/core";
+import { ThemeWrapper, appTheme} from "../theme"
 
-export default function App({ Component, pageProps } : AppProps) {
+export const App = ({ Component, pageProps }: AppProps): JSX.Element => {
+    // _app.tsx executes common js on every page
+
     useEffect(() => {
-        const jssStyles = document.querySelector('#jss-server-side')
+        const jssStyles = document.querySelector('#jss-server-side');
         if (jssStyles) {
-            jssStyles.parentElement.removeChild(jssStyles)
+            jssStyles.parentElement.removeChild(jssStyles);
         }
-    }, [])
-    return <Component {...pageProps}/>
+    }, []);
+
+    const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark");
+    const theming = React.useMemo(
+        () => appTheme(prefersDarkMode ? "dark" : "light"),
+        [prefersDarkMode]
+    );
+
+    return(
+        <ThemeWrapper theme={appTheme}>
+                <Component {...pageProps}/>
+        </ThemeWrapper>
+);
 }
+
+export default App;
+
+
+
